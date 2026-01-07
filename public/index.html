@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Agent Chat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 侧边栏 - 会话列表 -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>💬 会话列表~~</h2>
+        <button class="btn btn-primary" id="newSessionBtn">+ 新会话</button>
+      </div>
+      <div class="sessions-list" id="sessionsList">
+        <!-- 会话列表将在这里动态生成 -->
+      </div>
+    </aside>
+
+    <!-- 主内容区 - 对话界面 -->
+    <main class="main-content">
+      <!-- 顶部栏 -->
+      <header class="chat-header">
+        <div class="chat-info">
+          <h1>🤖 Claude Agent</h1>
+          <p class="session-id" id="currentSessionId">请创建或选择一个会话</p>
+        </div>
+        <div class="working-dir-section">
+          <label for="workingDir">📂 工作目录:</label>
+          <input
+            type="text"
+            id="workingDir"
+            class="working-dir-input"
+            placeholder="/path/to/directory"
+          >
+        </div>
+      </header>
+
+      <!-- 对话区域 -->
+      <div class="chat-container" id="chatContainer">
+        <div class="welcome-message" id="welcomeMessage">
+          <div class="welcome-content">
+            <h2>👋 欢迎使用 Claude Agent</h2>
+            <p>一个基于 Claude Agent SDK 的智能代码助手</p>
+            <ul>
+              <li>✨ 支持多轮对话</li>
+              <li>📝 可以读取、编辑、创建文件</li>
+              <li>🔧 可以执行命令和代码分析</li>
+              <li>💾 会话自动保存</li>
+            </ul>
+            <p class="hint">点击左上角「+ 新会话」开始对话</p>
+          </div>
+        </div>
+
+        <div class="messages" id="messages" style="display: none;">
+          <!-- 消息将在这里动态生成 -->
+        </div>
+      </div>
+
+      <!-- 输入区域 -->
+      <div class="input-container" id="inputContainer" style="display: none;">
+        <div class="input-wrapper">
+          <textarea
+            id="messageInput"
+            class="message-input"
+            placeholder="输入消息... (Shift + Enter 换行，Enter 发送)"
+            rows="1"
+          ></textarea>
+          <button class="btn btn-send" id="sendBtn">
+            <span id="sendBtnText">发送</span>
+            <span id="sendBtnIcon">📤</span>
+          </button>
+        </div>
+        <div class="input-hints">
+          <span class="hint">💡 试试: "帮我创建一个 TypeScript 类型定义文件"</span>
+          <span class="hint">💡 试试: "分析当前目录的代码结构"</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
