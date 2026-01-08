@@ -137,11 +137,18 @@ app.post('/api/chat', async (req: Request, res: Response) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no'); // 禁用 Nginx 缓冲
+  res.flushHeaders(); // 立即发送 headers
 
   let assistantMessage = '';
   let lastSentLength = 0;
 
   try {
+    console.log(`[Chat] Starting query for session ${sessionId}`);
+    console.log(`[Chat] Message: ${message}`);
+    console.log(`[Chat] Working directory: ${workingDir || process.cwd()}`);
+    console.log(`[Chat] Resume session ID: ${session.sessionId || 'new session'}`);
+
     // 调用 Claude Agent SDK
     for await (const msg of query({
       prompt: message,
@@ -157,11 +164,14 @@ app.post('/api/chat', async (req: Request, res: Response) => {
         }
       }
     })) {
-      console.log('Received message:', JSON.stringify(msg, null, 2));
+      console.log(`[Chat] Received message type: ${msg.type}`);
+      if (msg.type === 'assistant') {
+        console.log(`[Chat] Assistant message:`, JSON.stringify(msg, null, 2));
+      }
 
       // 处理助手消息
-      if (msg.type === "assistant" && msg.content) {
-        for (const block of msg.content) {
+      if (msg.type === "assistant" && msg.message && msg.message.content) {
+        for (const block of msg.message.content) {
           if (block.type === "text") {
             assistantMessage += block.text;
 
