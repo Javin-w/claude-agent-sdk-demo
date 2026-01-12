@@ -157,6 +157,7 @@ app.post('/api/chat', async (req: Request, res: Response) => {
         permissionMode: "acceptEdits",
         resume: session.sessionId,
         cwd: workingDir || process.cwd(),
+        pathToClaudeCodeExecutable: "/Users/bytedance/.local/bin/claude",
         systemPrompt: {
           type: "preset",
           preset: "claude_code",
@@ -206,8 +207,8 @@ app.post('/api/chat', async (req: Request, res: Response) => {
 
       // 处理结果消息
       if (msg.type === "result") {
-        if (msg.sessionId) {
-          session.sessionId = msg.sessionId;
+        if (msg.session_id) {
+          session.sessionId = msg.session_id;
         }
 
         if (msg.subtype === "success") {
@@ -221,8 +222,8 @@ app.post('/api/chat', async (req: Request, res: Response) => {
           // 发送完成信号
           res.write(`data: ${JSON.stringify({
             type: 'done',
-            cost: msg.totalCostUSD,
-            duration: msg.durationMs
+            cost: msg.total_cost_usd,
+            duration: msg.duration_ms
           })}\n\n`);
         } else {
           // 发送错误信号
