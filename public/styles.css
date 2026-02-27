@@ -5,14 +5,14 @@
 }
 
 :root {
-  --primary-color: #8b5cf6;
-  --primary-hover: #7c3aed;
-  --background: #0f172a;
-  --surface: #1e293b;
-  --surface-hover: #334155;
-  --border: #334155;
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
   --success: #10b981;
   --error: #ef4444;
   --warning: #f59e0b;
@@ -74,6 +74,16 @@ body {
 .session-item.active {
   background: var(--primary-color);
   border-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.session-item.active .session-item-meta,
+.session-item.active .session-item-delete {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.session-item.active .session-item-delete:hover {
+  color: #ffffff;
 }
 
 .session-item-header {
@@ -208,6 +218,7 @@ body {
   background: var(--primary-color);
   border-radius: 2rem;
   font-weight: 500;
+  color: #ffffff;
 }
 
 /* 消息 */
@@ -264,6 +275,12 @@ body {
 
 .message.user .message-content {
   background: var(--primary-color);
+  color: #ffffff;
+}
+
+.message.user .message-content pre,
+.message.user .message-content code {
+  color: var(--text-primary);
 }
 
 .message-content pre {
@@ -292,7 +309,7 @@ body {
   gap: 0.5rem;
   padding: 0.5rem 0.75rem;
   background: var(--warning);
-  color: var(--background);
+  color: var(--text-primary);
   border-radius: 0.375rem;
   font-size: 0.875rem;
   font-weight: 500;
@@ -418,6 +435,7 @@ body {
 
 .btn-send:disabled {
   background: var(--surface-hover);
+  color: var(--text-secondary);
   cursor: not-allowed;
 }
 
